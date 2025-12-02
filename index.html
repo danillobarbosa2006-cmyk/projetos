@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundação Asa Negra - Bico do Corvo</title>
+    <!-- Importando fontes: Roboto (Títulos/Bold/Black) e Lato (Texto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@1,400&family=Roboto:wght@300;700;900&display=swap" rel="stylesheet">
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #050505; /* Preto limpo */
+            --card-bg: #111111;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --accent: #9e1b1b; /* VERMELHO RUBRO (SANGUE) */
+            --border-color: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Títulos em Roboto Bold/Black */
+        h1, h2, h3, h4 { 
+            font-family: 'Roboto', sans-serif; 
+            font-weight: 900; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; cursor: pointer; }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* HEADER */
+        header { 
+            border-bottom: 2px solid var(--border-color); 
+            padding: 25px 0; 
+            background-color: rgba(5, 5, 5, 0.95); 
+            position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 15px; font-size: 22px; font-weight: 900; letter-spacing: 2px; cursor: pointer;}
+        
+        /* RESTAURADO: Logo branca e limpa */
+        .logo i { 
+            font-size: 32px; 
+            color: var(--text-primary); /* Branco */
+            filter: drop-shadow(0 0 5px rgba(158, 27, 27, 0.3)); /* Leve brilho rubro sutil */
+        }
+
+        nav ul { display: flex; gap: 30px; }
+        nav a { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); font-weight: 700; border-bottom: 3px solid transparent; padding-bottom: 5px; transition: all 0.3s;}
+        nav a:hover, nav a.active { color: var(--text-primary); border-color: var(--accent); }
+
+        /* LAYOUT DAS SEÇÕES (Abas) */
+        .page-section { display: none; animation: fadeIn 0.8s; padding-bottom: 60px; }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* HERO / DESTAQUE COM ESTÉTICA RUBRA */
+        .hero-section {
+            position: relative;
+            height: 65vh; 
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--accent);
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+        /* Overlay Rubro */
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, var(--bg-color) 10%, rgba(158, 27, 27, 0.4) 60%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
+            mix-blend-mode: multiply;
+        }
+        .hero-content {
+            padding: 50px;
+            max-width: 900px;
+            width: 100%;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+        
+        .hero-title {
+            font-size: 62px;
+            line-height: 1;
+            margin-bottom: 25px;
+            font-weight: 900;
+            color: var(--accent); 
+        }
+
+        .tagline {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 24px;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent);
+            padding-left: 20px;
+            background: linear-gradient(to right, rgba(158, 27, 27, 0.2), transparent);
+            display: inline-block;
+        }
+
+        .hero-desc { font-size: 18px; color: var(--text-primary); max-width: 700px; margin-bottom: 30px; font-weight: 400;}
+
+        /* DIVISOR DE PENA */
+        .feather-divider {
+            text-align: center;
+            margin: 40px 0;
+            color: var(--accent);
+            font-size: 24px;
+            opacity: 0.6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .feather-divider::before, .feather-divider::after {
+            content: '';
+            height: 1px;
+            width: 100px;
+            background-color: var(--border-color);
+        }
+
+        /* HEADERS DE SEÇÃO COM DETALHE DE PENA */
+        .section-header { 
+            padding: 40px 0 30px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid var(--border-color); 
+            margin-bottom: 40px; 
+        }
+        .section-header h2 { 
+            font-size: 32px; 
+            letter-spacing: 1px; 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        .section-header h2::before {
+            content: '\f52d'; 
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 20px;
+            color: var(--accent);
+        }
+
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 80px; }
+        
+        /* CARDS COM HOVER RUBRO */
+        .card { 
+            background-color: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            transition: all 0.4s ease; 
+            cursor: pointer; 
+            height: 100%; 
+            display: flex; 
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover { 
+            border-color: var(--accent); 
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(158, 27, 27, 0.2); 
+        }
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 40%;
+            background-image: url('https://img.freepik.com/vetores-premium/silhueta-da-favela-do-rio-de-janeiro-no-morro_477277-667.jpg'); 
+            background-size: cover;
+            opacity: 0.05;
+            z-index: 0;
+            pointer-events: none;
+            filter: grayscale(100%);
+        }
+
+        .card-image { width: 100%; height: 300px; overflow: hidden; position: relative; filter: grayscale(100%) contrast(110%); transition: filter 0.4s; z-index: 1;}
+        .card:hover .card-image { filter: grayscale(20%) contrast(120%); }
+        .card-image img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; z-index: 1; background: var(--card-bg);}
+        .tag { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 15px; font-weight: 900; }
+        .card-title { font-size:
